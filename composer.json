@@ -1,0 +1,19 @@
+{
+    "name": "lifetrenz/transcendz",
+    "description": "Lifetrenz library project for PHP utility.",
+    "type": "library",
+    "license": "GNU",
+    "autoload": {
+        "psr-4": {
+            "Lifetrenz\\Transcendz\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jerry MS",
+            "email": "jerry@lifetrenz.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
