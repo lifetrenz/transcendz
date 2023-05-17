@@ -2,7 +2,7 @@
     "name": "lifetrenz/transcendz",
     "description": "Lifetrenz library project for PHP utility.",
     "type": "library",
-    "license": "GNU",
+    "license": "AFL-3.0",
     "autoload": {
         "psr-4": {
             "Lifetrenz\\Transcendz\\": "src/"
