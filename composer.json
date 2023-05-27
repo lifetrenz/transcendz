@@ -15,7 +15,7 @@
             "email": "jerry@lifetrenz.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {}
 }
