@@ -16,12 +16,10 @@ class ControllerArgumentResolver
         foreach ($controllerMethodArguments as $controllerArgument) {
             $jsonBodyAttribute = $controllerArgument->getAttributes(JsonBody::class)[0] ?? null;
             if ($jsonBodyAttribute !== null) {
-                print_r($jsonBodyAttribute);
-                exit;
                 $reqObject = $jsonBody === null ? null : JsonToObject::convert($jsonBody, $controllerArgument->getType()->getName());
                 $argumentList = array_map(
                     fn ($argument) =>
-                    get_class($argument) === $controllerArgument->getType()->getName() ? $reqObject : $argument,
+                    is_object($argument) && get_class($argument) === $controllerArgument->getType()->getName() ? $reqObject : $argument,
                     $argumentList
                 );
             }
