@@ -10,7 +10,6 @@ use Lifetrenz\Transcendz\PG\Attribute\OutputField;
 use Lifetrenz\Transcendz\PG\Attribute\PlPgSql;
 use Lifetrenz\Transcendz\Exception\InvalidPlPgSqlClass;
 use ReflectionClass;
-use RuntimeException;
 
 class QueryBuilder
 {
@@ -31,8 +30,7 @@ class QueryBuilder
         if ($plpgsqlDAO instanceof PlPgSqlDataSetFunction) {
             $fields = self::getDataSetOutputFields($plPgSqlReflection);
         } elseif ($plpgsqlDAO instanceof PlPgSqlDataRecordFunction) {
-            // TODO: Fields generation for PlPgSqlDataRecordFunction
-            throw new RuntimeException("Complete the TODO");
+            $fields = self::getDataRecordOutputFields($plPgSqlReflection);
         } elseif ($plpgsqlDAO instanceof PlPgSqlScalarDataFunction) {
             $fields = self::getDataScalarResultField($plPgSqlReflection);
         }
@@ -90,6 +88,21 @@ class QueryBuilder
                 if ($outputFieldAttribute !== null) {
                     $fields[] = $outputFieldAttribute->newInstance()->getName();
                 }
+            }
+        }
+        return $fields;
+    }
+
+    private static function getDataRecordOutputFields(ReflectionClass $plPgSqlReflection): array
+    {
+        $resultDtoReflectionProperty = $plPgSqlReflection->getProperty("resultDataRecordDTO");
+        $resultDataRecordClass = $resultDtoReflectionProperty->getType()->getName();
+        $fields = [];
+        $resultDtoClassProperties = (new ReflectionClass($resultDataRecordClass))->getProperties();
+        foreach ($resultDtoClassProperties as $resultDtoClassProperty) {
+            $outputFieldAttribute = $resultDtoClassProperty->getAttributes(OutputField::class)[0] ?? null;
+            if ($outputFieldAttribute !== null) {
+                $fields[] = $outputFieldAttribute->newInstance()->getName();
             }
         }
         return $fields;

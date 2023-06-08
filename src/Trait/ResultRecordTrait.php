@@ -7,7 +7,7 @@ trait ResultRecordTrait
     /**
      * Get the value of resultDataRecordDTO
      */
-    public function getResultDataRecordDTO()
+    public function getResultDataRecordDTO(): mixed
     {
         return $this->resultDataRecordDTO;
     }
@@ -17,7 +17,7 @@ trait ResultRecordTrait
      *
      * @param mixed $resultDataRecordDTO
      */
-    public function setResultDataRecordDTO($resultDataRecordDTO)
+    public function setResultDataRecordDTO($resultDataRecordDTO): void
     {
         $this->resultDataRecordDTO = $resultDataRecordDTO;
     }
