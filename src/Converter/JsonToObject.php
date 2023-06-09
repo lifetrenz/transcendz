@@ -42,8 +42,9 @@ class JsonToObject
 
             if ($paramProperty->getType() === DateTime::class && $value !== null) {
                 $value = new DateTime($value);
+            } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin()) {
+                $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
             }
-
             $paramProperty->setValue($paramObject, $value);
         }
 
