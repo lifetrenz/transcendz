@@ -130,7 +130,11 @@ class QueryBuilder
 
         $data = $value ?? $defaultValue;
         if ($type === DataType::JSON) {
-            return "'".json_encode($data)."'::".$type->value;
+            $jsonData = json_encode($data);
+            if (!$jsonData) {
+                return "NULL::" . $type->value;
+            }
+            return "'".str_replace("'", "''", $jsonData)."'::".$type->value;
         }
 
         if ($type === DataType::INTEGER_ARRAY || $type === DataType::BIG_INTEGER_ARRAY) {
@@ -155,6 +159,6 @@ class QueryBuilder
             }
         }
 
-        return "'".$data."'::".$type->value;
+        return "'".str_replace("'", "''", $data)."'::".$type->value;
     }
 }
