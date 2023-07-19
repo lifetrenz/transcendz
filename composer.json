@@ -1,6 +1,6 @@
 {
     "name": "lifetrenz/transcendz",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "Lifetrenz library project for PHP utility.",
     "type": "library",
     "license": "AFL-3.0",
