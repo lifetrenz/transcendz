@@ -153,9 +153,9 @@ class QueryBuilder
 
         if ($type === DataType::BOOLEAN) {
             if ($data) {
-                return "TRUE"."'::".$type->value;
+                return "'" . "TRUE"."'::".$type->value;
             } else {
-                return "FALSE"."'::".$type->value;
+                return "'" . "FALSE"."'::".$type->value;
             }
         }
 
