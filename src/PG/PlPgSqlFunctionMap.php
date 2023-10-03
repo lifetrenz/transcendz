@@ -131,7 +131,7 @@ class PlPgSqlFunctionMap
     {
         foreach ($result as $row) {
             foreach ($row as $field) {
-                return $field;
+                return $this->resultType === "bool" ? $field === "t" : $field;
             }
         }
     }
