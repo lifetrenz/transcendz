@@ -40,6 +40,9 @@ class ArrayToObject
             $value = $array[$propertyName] ?? $defaultValue;
 
             if ($paramProperty->getType()->getName() === DateTime::class && $value !== null) {
+                if ($format === "EPOCH") {
+                    $value = "@$value";
+                }
                 $value = new DateTime($value);
             } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin()) {
                 $value = self::convert($value, $paramProperty->getType()->getName());
