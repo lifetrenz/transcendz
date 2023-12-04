@@ -11,7 +11,8 @@ class JsonProperty
         private string $name,
         private bool $required = false,
         private mixed $default = null,
-        private ?string $format = null
+        private ?string $format = null,
+        private ?string $elementType = null
     ) {
     }
 
@@ -45,5 +46,13 @@ class JsonProperty
     public function getFormat()
     {
         return $this->format;
+    }
+
+    /**
+     * Get the value of elementType
+     */
+    public function getElementType()
+    {
+        return $this->elementType;
     }
 }

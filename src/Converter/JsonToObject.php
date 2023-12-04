@@ -19,6 +19,7 @@ class JsonToObject
             $propertyName = null;
             $valueRequired = false;
             $defaultValue = null;
+            $arrayElementType = null;
 
             if ($jsonPropertyAttribute === null) {
                 $propertyName = $paramProperty->getName();
@@ -28,6 +29,7 @@ class JsonToObject
                 $valueRequired = $jsonProperty->isRequired();
                 $defaultValue = $jsonProperty->getDefault();
                 $format = $jsonProperty->getFormat();
+                $arrayElementType = $jsonProperty->getElementType();
             }
 
             if ($valueRequired && $defaultValue === null && $jsonObject->$propertyName === null) {
@@ -45,6 +47,13 @@ class JsonToObject
                     $value = "@$value";
                 }
                 $value = new DateTime($value);
+            } elseif ($paramProperty->getType()->getName() === "array" && $value !== null) {
+                $value = array_map(
+                    fn ($eachElement) =>
+                        self::convert(json_encode($eachElement), $arrayElementType),
+                    $value
+                );
+                $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
             } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin()) {
                 $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
             }
