@@ -3,6 +3,7 @@
 namespace Lifetrenz\Transcendz\Converter;
 
 use DateTime;
+use Exception;
 use Lifetrenz\Transcendz\Attribute\JsonProperty;
 use Lifetrenz\Transcendz\Exception\InvalidInputArgument;
 use ReflectionClass;
@@ -46,14 +47,23 @@ class JsonToObject
                 if ($format === "EPOCH") {
                     $value = "@$value";
                 }
-                $value = new DateTime($value);
+                try {
+                    $value = new DateTime($value);
+                } catch (Exception $ex) {
+                    throw new InvalidInputArgument(
+                        sprintf(
+                            "Failed %s to convert to DateTime",
+                            $propertyName
+                        )
+                    );
+                }
             } elseif ($paramProperty->getType()->getName() === "array" && $value !== null) {
-                $value = array_map(
+                $arrayValue = array_map(
                     fn ($eachElement) =>
                         self::convert(json_encode($eachElement), $arrayElementType),
                     $value
                 );
-                $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
+                $value = $arrayValue;
             } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin()) {
                 $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
             }
