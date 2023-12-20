@@ -22,12 +22,12 @@ class Collection implements Countable, Iterator, ArrayAccess, JsonSerializable
         $this->position = 0;
     }
 
-    public function key()
+    public function key(): int 
     {
         return $this->position;
     }
 
-    public function current()
+    public function current(): array
     {
         return $this->values[$this->position];
     }
@@ -47,7 +47,7 @@ class Collection implements Countable, Iterator, ArrayAccess, JsonSerializable
         return isset($this->values[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): array
     {
         return $this->values[$offset];
     }
@@ -66,7 +66,7 @@ class Collection implements Countable, Iterator, ArrayAccess, JsonSerializable
         unset($this->values[$offset]);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return isset($this->values) ? array_values($this->values) : [];
     }
