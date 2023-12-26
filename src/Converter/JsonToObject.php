@@ -58,14 +58,17 @@ class JsonToObject
                     );
                 }
             } elseif ($paramProperty->getType()->getName() === "array" && $value !== null) {
-                if (!is_scalar($value)) {
                     $arrayValue = array_map(
                         fn ($eachElement) =>
-                            self::convert(json_encode($eachElement), $arrayElementType),
+                            is_scalar($eachElement) || $eachElement === null ? 
+                                $eachElement : 
+                                self::convert(
+                                    json_encode($eachElement), 
+                                    $arrayElementType
+                                ),
                         $value
                     );
                     $value = $arrayValue;
-                }
             } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin()) {
                 $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
             }
