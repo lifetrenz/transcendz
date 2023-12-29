@@ -27,7 +27,7 @@ class Collection implements Countable, Iterator, ArrayAccess, JsonSerializable
         return $this->position;
     }
 
-    public function current(): array
+    public function current(): mixed
     {
         return $this->values[$this->position];
     }
@@ -47,7 +47,7 @@ class Collection implements Countable, Iterator, ArrayAccess, JsonSerializable
         return isset($this->values[$offset]);
     }
 
-    public function offsetGet($offset): array
+    public function offsetGet($offset): mixed
     {
         return $this->values[$offset];
     }
