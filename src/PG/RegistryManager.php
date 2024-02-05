@@ -10,10 +10,7 @@ class RegistryManager
     }
 
     public function execute(
-        PlPgSqlDataSetFunction |
-        PlPgSqlDataRecordFunction |
-        PlPgSqlScalarDataFunction
-        $plPgSqlFunction
+        PlPgSqlDataSetFunction | PlPgSqlDataRecordFunction | PlPgSqlScalarDataFunction $plPgSqlFunction
     ) {
         $plPgSqlFunctionManager = new PlPgSqlFunctionManager($this->registry);
         return $plPgSqlFunctionManager->execute($plPgSqlFunction);
