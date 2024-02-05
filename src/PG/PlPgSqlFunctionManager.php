@@ -10,10 +10,7 @@ class PlPgSqlFunctionManager
     }
 
     public function execute(
-        PlPgSqlDataSetFunction |
-        PlPgSqlDataRecordFunction |
-        PlPgSqlScalarDataFunction
-        $plPgSqlFunction
+        PlPgSqlDataSetFunction | PlPgSqlDataRecordFunction | PlPgSqlScalarDataFunction $plPgSqlFunction
     ) {
         $functionMap = new PlPgSqlFunctionMap($plPgSqlFunction, $this->connectionRegistry);
         $queryExecutor = new QueryExecutor(
