@@ -22,7 +22,7 @@
         "post-install-cmd": [
             "sh contrib/setup.sh"
         ],
-        "lint": "php vendor/bin/phpcbf ." 
+        "lint": "php vendor/bin/phpcbf --standard=PSR12 --ignore=*/var/*,*/vendor/* --encoding=utf-8 -n -p ." 
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^4.0.x-dev"

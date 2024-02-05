@@ -21,6 +21,7 @@ do
 	if [ $? != 0 ]
 	then
 		echo "Fix the error before commit."
+        echo "Use composer lint command to fix the errors"
 		exit 1
 	fi
 	FILES="$FILES $PROJECT/$FILE"
@@ -33,6 +34,7 @@ then
 	if [ $? != 0 ]
 	then
 		echo "Fix the error before commit."
+		echo "Use composer lint command to fix the errors"
 		exit 1
 	fi
 fi
