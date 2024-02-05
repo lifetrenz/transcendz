@@ -134,31 +134,31 @@ class QueryBuilder
             if (!$jsonData) {
                 return "NULL::" . $type->value;
             }
-            return "'".str_replace("'", "''", $jsonData)."'::".$type->value;
+            return "'" . str_replace("'", "''", $jsonData) . "'::" . $type->value;
         }
 
         if ($type === DataType::INTEGER_ARRAY || $type === DataType::BIG_INTEGER_ARRAY) {
             if (!is_array($data)) {
                 throw new InvalidArgumentException(sprintf("Array expected but found %s!", gettype($data)));
             }
-            return "ARRAY[".implode(", ", $data)."]::".$type->value;
+            return "ARRAY[" . implode(", ", $data) . "]::" . $type->value;
         }
 
         if ($type === DataType::DATE || $type === DataType::TIMESTAMPTZ || $type === DataType::TIMESTAMPTZ) {
             if (! $data instanceof DateTime) {
                 throw new InvalidArgumentException(sprintf("DateTime expected but found %s!", gettype($data)));
             }
-            return "'" . date_format($data, "Y-m-d H:i:s")."'::".$type->value;
+            return "'" . date_format($data, "Y-m-d H:i:s") . "'::" . $type->value;
         }
 
         if ($type === DataType::BOOLEAN) {
             if ($data) {
-                return "'" . "TRUE"."'::".$type->value;
+                return "'" . "TRUE" . "'::" . $type->value;
             } else {
-                return "'" . "FALSE"."'::".$type->value;
+                return "'" . "FALSE" . "'::" . $type->value;
             }
         }
 
-        return "'".str_replace("'", "''", $data)."'::".$type->value;
+        return "'" . str_replace("'", "''", $data) . "'::" . $type->value;
     }
 }

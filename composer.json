@@ -17,5 +17,14 @@
     ],
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "require": {}
+    "require": {},
+    "scripts": {
+        "post-install-cmd": [
+            "sh contrib/setup.sh"
+        ],
+        "lint": "php vendor/bin/phpcbf ." 
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^4.0.x-dev"
+    }
 }

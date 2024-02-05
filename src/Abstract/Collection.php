@@ -22,7 +22,7 @@ class Collection implements Countable, Iterator, ArrayAccess, JsonSerializable
         $this->position = 0;
     }
 
-    public function key(): int 
+    public function key(): int
     {
         return $this->position;
     }

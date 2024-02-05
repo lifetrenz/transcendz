@@ -60,10 +60,10 @@ class JsonToObject
             } elseif ($paramProperty->getType()->getName() === "array" && $value !== null) {
                     $arrayValue = array_map(
                         fn ($eachElement) =>
-                            is_scalar($eachElement) || $eachElement === null ? 
-                                $eachElement : 
+                            is_scalar($eachElement) || $eachElement === null ?
+                                $eachElement :
                                 self::convert(
-                                    json_encode($eachElement), 
+                                    json_encode($eachElement),
                                     $arrayElementType
                                 ),
                         $value
