@@ -144,11 +144,18 @@ class QueryBuilder
             return "ARRAY[" . implode(", ", $data) . "]::" . $type->value;
         }
 
-        if ($type === DataType::DATE || $type === DataType::TIMESTAMPTZ || $type === DataType::TIMESTAMPTZ) {
+        if ($type === DataType::DATE || $type === DataType::TIMESTAMP) {
             if (! $data instanceof DateTime) {
                 throw new InvalidArgumentException(sprintf("DateTime expected but found %s!", gettype($data)));
             }
             return "'" . date_format($data, "Y-m-d H:i:s") . "'::" . $type->value;
+        }
+
+        if ($type === DataType::TIMESTAMPTZ) {
+            if (! $data instanceof DateTime) {
+                throw new InvalidArgumentException(sprintf("DateTime expected but found %s!", gettype($data)));
+            }
+            return "'" . date_format($data, "Y-m-d H:i:sO") . "'::" . $type->value;
         }
 
         if ($type === DataType::BOOLEAN) {
