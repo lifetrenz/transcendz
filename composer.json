@@ -1,6 +1,6 @@
 {
     "name": "lifetrenz/transcendz",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "description": "Lifetrenz library project for PHP utility.",
     "type": "library",
     "license": "AFL-3.0",
@@ -17,7 +17,9 @@
     ],
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "require": {},
+    "require": {
+        "aliyuncs/oss-sdk-php": "^2.7"
+    },
     "scripts": {
         "post-install-cmd": [
             "sh contrib/setup.sh"

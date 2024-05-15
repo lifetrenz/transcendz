@@ -40,7 +40,7 @@ class Connection
         $this->host = parse_url($connectionDsn, PHP_URL_HOST);
         $this->port = parse_url($connectionDsn, PHP_URL_PORT);
         $this->user = parse_url($connectionDsn, PHP_URL_USER);
-        $this->password = urldecode(parse_url($connectionDsn, PHP_URL_PASS));
+        $this->password = urldecode(parse_url($connectionDsn, PHP_URL_PASS)) ;
         $this->database = trim(parse_url($connectionDsn, PHP_URL_PATH), "/");
         parse_str(parse_url($connectionDsn, PHP_URL_QUERY), $queryparams);
         $this->serverVersion = $queryparams["serverVersion"] ?? null;
