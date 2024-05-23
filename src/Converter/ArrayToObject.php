@@ -44,7 +44,7 @@ class ArrayToObject
                     $value = "@$value";
                 }
                 $value = new DateTime($value);
-            } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin()) {
+            } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin() && $value !== null) {
                 $value = self::convert($value, $paramProperty->getType()->getName());
             }
 
