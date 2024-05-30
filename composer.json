@@ -17,9 +17,6 @@
     ],
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "require": {
-        "aliyuncs/oss-sdk-php": "^2.7"
-    },
     "scripts": {
         "post-install-cmd": [
             "sh contrib/setup.sh"

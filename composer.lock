@@ -4,54 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc8051aa21a8036ce66380c54876cea6",
-    "packages": [
-        {
-            "name": "aliyuncs/oss-sdk-php",
-            "version": "v2.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aliyun/aliyun-oss-php-sdk.git",
-                "reference": "ce5d34dae9868237a32248788ea175c7e9da14b1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aliyun/aliyun-oss-php-sdk/zipball/ce5d34dae9868237a32248788ea175c7e9da14b1",
-                "reference": "ce5d34dae9868237a32248788ea175c7e9da14b1",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "*",
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "OSS\\": "src/OSS"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Aliyuncs",
-                    "homepage": "http://www.aliyun.com"
-                }
-            ],
-            "description": "Aliyun OSS SDK for PHP",
-            "homepage": "http://www.aliyun.com/product/oss/",
-            "support": {
-                "issues": "https://github.com/aliyun/aliyun-oss-php-sdk/issues",
-                "source": "https://github.com/aliyun/aliyun-oss-php-sdk/tree/v2.7.1"
-            },
-            "time": "2024-02-28T11:22:18+00:00"
-        }
-    ],
+    "content-hash": "db83adf04dfa9fafc535cc2ac11ae33f",
+    "packages": [],
     "packages-dev": [
         {
             "name": "squizlabs/php_codesniffer",
@@ -59,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "e78cd2e1548a29d0c4c2d348005a711b989d5416"
+                "reference": "82c2508c34fb444b9b93cedc6e5c8a5909574b87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/e78cd2e1548a29d0c4c2d348005a711b989d5416",
-                "reference": "e78cd2e1548a29d0c4c2d348005a711b989d5416",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/82c2508c34fb444b9b93cedc6e5c8a5909574b87",
+                "reference": "82c2508c34fb444b9b93cedc6e5c8a5909574b87",
                 "shasum": ""
             },
             "require": {
@@ -131,7 +85,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-02-04T00:17:23+00:00"
+            "time": "2024-05-24T08:49:13+00:00"
         }
     ],
     "aliases": [],
