@@ -32,6 +32,14 @@ class Page
         $this->recordsInCurrentPage = $fetchedRecords;
     }
 
+    public function getNextPage(): Page
+    {
+        return new Page(
+            $this->getPageNumber() + 1,
+            $this->getRecordsPerPage()
+        );
+    }
+
     /**
      * Get the value of page
      *
