@@ -9,7 +9,8 @@ class QueryExecutor
 {
     public function __construct(
         private Connection $connection,
-        private string $query
+        private string $query,
+        private ?string $setOptions = null
     ) {
     }
 
@@ -17,6 +18,9 @@ class QueryExecutor
     {
         $connection = $this->connection->connect();
         try {
+            if ($this->setOptions !== null) {
+                pg_query($connection, $this->setOptions);
+            }
             $result = pg_query($connection, $this->query);
             if (!$result) {
                 throw new DbExecutionException(

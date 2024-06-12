@@ -15,7 +15,8 @@ class PlPgSqlFunctionManager
         $functionMap = new PlPgSqlFunctionMap($plPgSqlFunction, $this->connectionRegistry);
         $queryExecutor = new QueryExecutor(
             $functionMap->getConnection(),
-            $functionMap->getQuery()
+            $functionMap->getQuery(),
+            $functionMap->hasSetOptions() ? $functionMap->getSetOptions() : null
         );
         $result = $queryExecutor->execute();
 

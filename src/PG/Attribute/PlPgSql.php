@@ -10,7 +10,8 @@ class PlPgSql
     public function __construct(
         private string $name,
         private string $schema,
-        private string $dbIdentifier
+        private string $dbIdentifier,
+        private ?array $setOptions = null
     ) {
     }
 
@@ -36,5 +37,15 @@ class PlPgSql
     public function getDbIdentifier(): string
     {
         return $this->dbIdentifier;
+    }
+
+
+
+    /**
+     * Get the value of setOptions
+     */
+    public function getSetOptions(): ?array
+    {
+        return $this->setOptions;
     }
 }

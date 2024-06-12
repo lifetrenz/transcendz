@@ -18,6 +18,10 @@ class PlPgSqlFunctionMap
 
     private string $resultType;
 
+    private bool $hasSetOptions = false;
+
+    private string $setOptions = "";
+
     public function __construct(
         private PlPgSqlDataSetFunction | PlPgSqlDataRecordFunction | PlPgSqlScalarDataFunction $plPgSqlFunctionObject,
         private ConnectionRegistry $registry
@@ -33,6 +37,10 @@ class PlPgSqlFunctionMap
         $plpgSqlObject = $plpgsqlAttributeClass->newInstance();
         $this->connection = new Connection($this->registry->getConnection($plpgSqlObject->getDbIdentifier()));
         $this->query = QueryBuilder::getFunctionCallQuery($plPgSqlFunctionObject);
+        $this->hasSetOptions = $plpgSqlObject->getSetOptions() !== null;
+        if ($this->hasSetOptions) {
+            $this->setOptions = QueryBuilder::getFunctionSetOptions($plPgSqlFunctionObject);
+        }
         $this->setResultType($plPgSqlReflection);
     }
 
@@ -175,5 +183,21 @@ class PlPgSqlFunctionMap
     public function getQuery()
     {
         return $this->query;
+    }
+
+    /**
+     * Get the value of hasSetOptions
+     */
+    public function hasSetOptions()
+    {
+        return $this->hasSetOptions;
+    }
+
+    /**
+     * Get the value of setOptions
+     */
+    public function getSetOptions()
+    {
+        return $this->setOptions;
     }
 }

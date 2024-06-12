@@ -13,6 +13,25 @@ use ReflectionClass;
 
 class QueryBuilder
 {
+    public static function getFunctionSetOptions(PlPgSqlDataSetFunction | PlPgSqlDataRecordFunction | PlPgSqlScalarDataFunction $plpgsqlDAO): string
+    {
+        $plPgSqlReflection = new ReflectionClass($plpgsqlDAO);
+        $plpgsqlAttributeClass = $plPgSqlReflection->getAttributes(PlPgSql::class)[0] ?? null;
+        if ($plpgsqlAttributeClass === null) {
+            throw new InvalidPlPgSqlClass(sprintf(
+                'Cannot build set options from object, no PlPgSql attribute declared on class %s',
+                $plpgsqlDAO::class
+            ));
+        }
+        $plpgSqlObject = $plpgsqlAttributeClass->newInstance();
+        $setOptions = $plpgSqlObject->getSetOptions();
+        $setStatement = "";
+        foreach ($setOptions as $key => $value) {
+            $setStatement .= "SET " . $key . " = " . $value . ";";
+        }
+        return $setStatement;
+    }
+
     public static function getFunctionCallQuery(
         PlPgSqlDataSetFunction | PlPgSqlDataRecordFunction | PlPgSqlScalarDataFunction $plpgsqlDAO
     ): string {
