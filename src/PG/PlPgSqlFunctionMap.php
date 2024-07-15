@@ -162,7 +162,7 @@ class PlPgSqlFunctionMap
             return $value === "t";
         }
 
-        if ($type === DataType::INTEGER_ARRAY || $type === DataType::BIG_INTEGER_ARRAY) {
+        if ($type === DataType::INTEGER_ARRAY || $type === DataType::BIG_INTEGER_ARRAY || $type === DataType::VARCHAR_ARRAY) {
             return json_decode(str_replace(['{', '}'], ['[', ']'], $value));
         }
 

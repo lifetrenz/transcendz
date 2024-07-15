@@ -163,6 +163,13 @@ class QueryBuilder
             return "ARRAY[" . implode(", ", $data) . "]::" . $type->value;
         }
 
+        if ($type === DataType::VARCHAR_ARRAY) {
+            if (!is_array($data)) {
+                throw new InvalidArgumentException(sprintf("Array expected but found %s!", gettype($data)));
+            }
+            return "ARRAY['" . implode("', '", $data) . "']::" . $type->value;
+        }
+
         if ($type === DataType::DATE || $type === DataType::TIMESTAMP) {
             if (! $data instanceof DateTime) {
                 throw new InvalidArgumentException(sprintf("DateTime expected but found %s!", gettype($data)));

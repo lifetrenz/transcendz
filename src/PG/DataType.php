@@ -33,4 +33,6 @@ enum DataType: string
     case INTEGER_ARRAY = 'INTEGER[]';
 
     case BIG_INTEGER_ARRAY = 'BIGINT[]';
+
+    case VARCHAR_ARRAY = 'VARCHAR[]';
 }
