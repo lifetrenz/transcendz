@@ -71,6 +71,8 @@ class JsonToObject
                 $value = $arrayValue;
             } elseif ($paramProperty !== null && !$paramProperty->getType()->isBuiltin() && $value !== null) {
                 $value = self::convert(json_encode($value), $paramProperty->getType()->getName());
+            } elseif ($paramProperty->getType()->getName() === "bool") {
+                $value = ($value == "true"); 
             }
             $paramProperty->setValue($paramObject, $value);
         }
