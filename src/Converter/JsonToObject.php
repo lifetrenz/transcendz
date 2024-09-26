@@ -33,7 +33,7 @@ class JsonToObject
                 $arrayElementType = $jsonProperty->getElementType();
             }
 
-            if ($valueRequired && $defaultValue === null && $jsonObject->$propertyName === null) {
+            if ($valueRequired && $defaultValue === null && ($jsonObject?->$propertyName ?? null) === null) {
                 throw new InvalidInputArgument(
                     sprintf(
                         "Required %s property is not found in the JSON string",
