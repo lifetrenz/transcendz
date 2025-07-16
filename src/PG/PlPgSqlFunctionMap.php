@@ -142,6 +142,7 @@ class PlPgSqlFunctionMap
                 return $this->resultType === "bool" ? $field === "t" : $field;
             }
         }
+        return null;
     }
 
     private static function convertValue(mixed $value, DataType $type)
@@ -162,8 +163,13 @@ class PlPgSqlFunctionMap
             return $value === "t";
         }
 
-        if ($type === DataType::INTEGER_ARRAY || $type === DataType::BIG_INTEGER_ARRAY || $type === DataType::VARCHAR_ARRAY) {
+        if ($type === DataType::INTEGER_ARRAY || $type === DataType::BIG_INTEGER_ARRAY) {
             return json_decode(str_replace(['{', '}'], ['[', ']'], $value));
+        }
+
+        if ($type === DataType::VARCHAR_ARRAY) {
+            $trimmed = trim($value, '{}');
+            return str_getcsv($trimmed);
         }
 
         return $value;
