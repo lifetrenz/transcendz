@@ -3,6 +3,7 @@
 namespace Lifetrenz\Transcendz\PG;
 
 use Lifetrenz\Transcendz\Exception\InvalidPgConnectionDsn;
+use PgSql\Connection as PgConnection;
 
 class Connection
 {
@@ -23,6 +24,8 @@ class Connection
     private ?string $serverVersion;
 
     private ?string $charset;
+
+    private ?string $applicationName;
 
     private bool $isConnected = false;
 
@@ -45,12 +48,13 @@ class Connection
         parse_str(parse_url($connectionDsn, PHP_URL_QUERY), $queryparams);
         $this->serverVersion = $queryparams["serverVersion"] ?? null;
         $this->charset = $queryparams["charset"] ?? null;
+        $this->applicationName = $queryparams["applicationName"] ?? null;
     }
 
     /**
      * Get the value of scheme
      */
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->scheme;
     }
@@ -58,7 +62,7 @@ class Connection
     /**
      * Get the value of host
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -66,7 +70,7 @@ class Connection
     /**
      * Get the value of port
      */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
@@ -74,7 +78,7 @@ class Connection
     /**
      * Get the value of user
      */
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
@@ -82,7 +86,7 @@ class Connection
     /**
      * Get the value of password
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -90,7 +94,7 @@ class Connection
     /**
      * Get the value of database
      */
-    public function getDatabase()
+    public function getDatabase(): string
     {
         return $this->database;
     }
@@ -98,7 +102,7 @@ class Connection
     /**
      * Get the value of serverVersion
      */
-    public function getServerVersion()
+    public function getServerVersion(): ?string
     {
         return $this->serverVersion;
     }
@@ -106,22 +110,30 @@ class Connection
     /**
      * Get the value of charset
      */
-    public function getCharset()
+    public function getCharset(): ?string
     {
         return $this->charset;
     }
 
-    public function connect()
+    public function connect(): PgConnection
     {
+        if ($this->getApplicationName() !== null) {
+            $options = sprintf("options='--application_name=%s'", $this->getApplicationName());
+        }
         $connection = pg_connect(sprintf(
-            "host=%s port=%s dbname=%s user=%s password=%s",
+            "host=%s port=%s dbname=%s user=%s password=%s %s",
             $this->host,
             $this->port,
             $this->database,
             $this->user,
-            $this->password
+            $this->password,
+            $options ?? ''
         ));
-        if (!$connection) {
+        if (
+            !$connection ||
+            pg_connection_status($connection) !== PGSQL_CONNECTION_OK ||
+            !$connection instanceof PgConnection
+        ) {
             throw new InvalidPgConnectionDsn("Not able to establish connection to database.");
         }
         $this->isConnected = true;
@@ -134,5 +146,10 @@ class Connection
     public function isConnected()
     {
         return $this->isConnected;
+    }
+
+    public function getApplicationName(): ?string
+    {
+        return $this->applicationName;
     }
 }
