@@ -17,7 +17,7 @@ class Connection
 
     private string $user;
 
-    private string $password;
+    private ?string $password;
 
     private string $database;
 
@@ -86,7 +86,7 @@ class Connection
     /**
      * Get the value of password
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -117,18 +117,35 @@ class Connection
 
     public function connect(): PgConnection
     {
-        if ($this->getApplicationName() !== null) {
-            $options = sprintf("options='--application_name=%s'", $this->getApplicationName());
+        $connectionParts = [
+            sprintf("host=%s", $this->getHost()),
+            sprintf("port=%s", $this->getPort()),
+            sprintf("dbname=%s", $this->getDatabase()),
+            sprintf("user=%s", $this->getUser()),
+        ];
+
+        $optionParts = [];
+
+        if ($this->getPassword() !== null) {
+            $connectionParts[] = sprintf("password=%s", $this->getPassword());
         }
-        $connection = pg_connect(sprintf(
-            "host=%s port=%s dbname=%s user=%s password=%s %s",
-            $this->host,
-            $this->port,
-            $this->database,
-            $this->user,
-            $this->password,
-            $options ?? ''
-        ));
+
+        if ($this->getApplicationName() !== null) {
+            $connectionParts[] = sprintf("application_name=%s", $this->getApplicationName());
+        }
+
+        if ($this->getCharset() !== null) {
+            $optionParts[] = sprintf("--client_encoding=%s", $this->getCharset());
+        }
+
+        if (count($optionParts) > 0) {
+            $options = sprintf("options='%s'", implode(" ", $optionParts));
+        }
+
+        $connectionString = implode(" ", $connectionParts) . $options ?? '';
+
+        $connection = pg_connect($connectionString);
+
         if (
             !$connection ||
             pg_connection_status($connection) !== PGSQL_CONNECTION_OK ||
@@ -136,6 +153,7 @@ class Connection
         ) {
             throw new InvalidPgConnectionDsn("Not able to establish connection to database.");
         }
+
         $this->isConnected = true;
         return $connection;
     }
