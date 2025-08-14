@@ -139,7 +139,7 @@ class Connection
         }
 
         if (count($optionParts) > 0) {
-            $options = sprintf("options='%s'", implode(" ", $optionParts));
+            $options = sprintf(" options='%s'", implode(" ", $optionParts));
         }
 
         $connectionString = implode(" ", $connectionParts) . $options ?? '';
